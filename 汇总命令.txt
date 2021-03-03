@@ -1,0 +1,128 @@
+linux常用命令指令重要目录：9大目录
+/:根目录（我的电脑）
+        /dev:device 设备目录
+	/etc:配置文件，你上班后，经常听到要修改配置
+	/home:所有的普通用户都在home下
+	/root:超级管理员所在的目录
+	/mnt:mount挂载目录
+	/tmp:temp临时文件目录，我们上班后做实验一般在这个目录下做
+	/usr:软件默认安装的目录
+
+【pwd】          查看我当前所在位置
+
+【ls 】          展示目录中有哪些内容（ll比较常用）（ls -l）（ls -a）
+
+【man 命令 】    查询命令意思，例 men l、men p
+
+【取别名】       alias 新命令=‘ls-l’ 
+
+【撤销别名】     unalias 新命令
+
+【cd 】          切换目录  如果想去的位置就是我目前所在的目录，就直接 cd 目录名
+                 不在就cd /敲完整目录路径
+
+【cd..】         返回上一层目录
+
+【clear】        清屏
+
+【mkdir 名称】   新建文件夹 例：mkdir xuexi、mkdir buluo nvwang（多个文件夹用空格隔开）、
+                 mkdir -p xuexi/wenxi/fuxi（文件夹中的文件夹中的文件夹）
+
+【touch 名称】   新建文件   例：touch xuexi、touch buluo nvwang（多个文件用空格隔开）
+
+【rmdir 名称 】  删除文件夹 例：rmdir xuexi（或者空格隔开删除多个）
+
+【rm -rf 名称】  删除文件或者文件夹（常用这个删除，但是要注意看清楚，误删重要文件，离死不远了）
+
+【mv】           重命名或者剪切 如果是同层，表示重命名，如果是不同层，表示剪切
+                 例：mv xuexi（原名称） buluo（新名称）   同层 重命名
+                     mv xuexi/ /tmp     不同层剪切（只能剪切文件夹）
+
+【cp】           复制文件或者文件夹
+
+【cat】          静态文件 小点的文件，最好是一屏就能展示完
+【more】         静态文件 慢慢看，不能向上看  q：退出（常用）
+【less】         静态文件 上下随便看
+
+【tail -f】      动态文件
+
+【vi】           编辑器
+                 光标:   
+                      纵向移动 nG    例 4G 78G 
+                      横向移动 w（首字母移动） e（尾字母移动）
+                      hjkl 上下左右移动或小键盘上下左右移动
+                      空格：右 、 删除键：左 、 下：n 、 上：N
+                  行首^   行尾$
+                  复制：y     
+                  	一行：yy  n行：nyy 光标到行首：y^  光标到行尾：y$
+		  粘贴：p（paste） 放了一个屁
+		  删除：d----->delete
+			一行：dd  n行：ndd 光标到行首：d^  光标到行尾：d$
+		  微调整：x 用于删除光标所在的那个字符，先向后，再向前
+		  撤回：u
+		  查找：/   
+
+【su】            超管切换普通用户  su    用户名
+                  普通用户切换超管  su -  跳出下一行输密码
+                  root：/root
+	          普通用户：/home/用户名
+                  #：超管权限   $：普通权限
+【添加用户】      adduser/useradd 用户名
+【添加密码】      passwd 用户名
+                 【提醒】添加用户后，就会自动的添加一个和用户名一模一样的用户组
+【删除用户】      userdel 用户名  
+                  userdel -rf 用户名（删除用户的同时把/home/用户名的文件夹同步删除）
+
+
+【添加用户组】    groupadd 用户组名
+【删除用户组】    groupdel 用户组名
+【查看用户文件】  more /etc/passwd
+【查看用户组文件】more /etc/group
+【更改所属用户】  chown 用户名 文件或文件夹
+【更改所属用户组】chgrp 用户组名 文件或文件夹
+【权限】          -rwxrwxrwx.前三代表宿主（u） 中三代表宿组（g） 后三代表其它用户（o），
+                  r（4）  w（2）   x（1）  相加=7
+                  chmod 777 文件或文件夹（自己操作）
+                  chmod +x 文件或文件夹 （上班中会遇到这种情况）
+                  chmod u+x 文件或文件夹（上班中会遇到这种情况）
+	          如下是不常见但你也要理解的：
+		  1、chmod u-x 文件或文件夹
+		  2、chmod g+u 文件或文件夹
+		  3、chmod o+rw 文件或文件夹
+                  能+就能-，能u就能go，能r就能wx     例chmod o-w、chmod g+x 
+
+【压缩】          zip -r 名 文件或文件夹
+【解压缩】        unzip 名
+【打包压缩】      tar cvf 名 文件或文件夹   
+【追加打包压缩】  tar -rf 名 文件或文件夹（完全压缩后不能追加打包）
+【查看打包内容】  tar -tf 压缩包名
+【删除打包内容】  tar --delete -f 名 文件或文件夹
+【打包压缩】      gzip 包名.tar（前提：已经是一个tar包）
+【解打包压缩】    gunzip 包名.tar.gz（解压后是个.tar包）
+【直接压缩】      tar zcvf 名.tar.gz 文件或文件名
+【直接解压缩】    tar zxvf 名.tar.gz
+
+【查进程】	  ps -ef（工作常用）   ps aux（运维常用）
+【查实时进程】    top
+【退出实时进程】  ctrl+c（键盘快捷键）
+【查单个进程】    ps -ef | grep 进程名（一个叫没有）
+【杀进程】        kill -9 pid（第二列查看pid）
+【强制杀进程】    pkill 进程名或kill pname 进程名
+
+【查ip】          ifconfig
+【关闭防火墙】    service iptables stop
+【打开防火墙】    service iptables start
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
